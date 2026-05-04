@@ -1,0 +1,19 @@
+name: Validación Terraform              # Nombre del workflow que aparecerá en GitHub Actions
+
+on:                                     # Define los eventos que activan el workflow
+  push:                                 # Se ejecutará cuando haya un push
+    branches: [ "main" ]                # Solo si el push ocurre en la rama main
+
+jobs:                                   # Conjunto de trabajos que ejecutará el workflow
+  validate:                             # Nombre del job (puede ser cualquiera)
+    runs-on: ubuntu-latest              # Máquina virtual donde se ejecutará el job
+
+    steps:                              # Lista de pasos que se ejecutarán en orden
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3       # Descarga el código del repositorio en la VM
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v2   # Instala Terraform en la máquina virtual
+
+      - name: Validar sintaxis de Terraform
+        run: terraform validate          # Ejecuta 'terraform validate' para comprobar errores
